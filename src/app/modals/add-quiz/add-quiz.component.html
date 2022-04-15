@@ -1,0 +1,48 @@
+<p>hello</p>
+<!-- old Version OF MODAL --
+
+<h2 mat-dialog-title>Add A New Quiz</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-card>
+    <mat-card-content>
+  <form #addQuizForm=ngForm (ngSubmit)="addQuiz()" class="my-form">
+  <mat-form-field appearance="fill">
+    <mat-label>Quiz Title</mat-label>
+    <input matInput placeholder="title" [(ngModel)]="quiz.title" name="title"
+           type="title" required >
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Select Level</mat-label>
+    <mat-select [(value)]="quiz.level">
+      <mat-option value="BEGINNER">Beginner</mat-option>
+      <mat-option value="INTERMIDIATE">Intermidiate</mat-option>
+      <mat-option value="ADVANCED">Advanced</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Quiz Description</mat-label>
+    <textarea matInput placeholder="description" [(ngModel)]="quiz.description" required name="description" >
+    </textarea>
+  </mat-form-field>
+    <div>
+      <label>Published </label>
+      <mat-radio-group [(ngModel)]="quiz.isPublished" name="isPublished">
+        <mat-radio-button value="true">True</mat-radio-button>
+        <mat-radio-button value="false">False</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <mat-card-actions>
+      <button mat-raised-button [mat-dialog-close]="true" [disabled]="addQuizForm.form.invalid" type="submit" color="primary" >Add Quiz</button>
+    </mat-card-actions>
+    </form>
+    </mat-card-content>
+  </mat-card>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+</mat-dialog-actions>
+-->
+<div></div>
