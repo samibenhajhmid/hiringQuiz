@@ -1,0 +1,44 @@
+<h1 mat-dialog-title>Add Question Form</h1>
+<div mat-dialog-content>
+  <form [formGroup]="questionForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Question Text</mat-label>
+      <textarea matInput formControlName="questionText" placeholder="Question Text"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Question Category</mat-label>
+      <mat-select formControlName="category" placeholder="Category">
+        <mat-option value="JAVA">Java</mat-option>
+        <mat-option value="SPRINGFRAMEWORK">Spring Framework</mat-option>
+        <mat-option value="ANGULAR">Angular Framework</mat-option>
+        <mat-option value="SQL">SQL</mat-option>
+        <mat-option value="LOGIC">Advanced</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Related Quiz</mat-label>
+      <mat-select formControlName="questionQuiz" placeholder="Related Quiz">
+      <mat-option  *ngFor="let questionQuiz of questionQuizState" [value]="questionQuiz">
+        {{questionQuiz}}
+      </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Question Time</mat-label>
+      <input matInput type="number" formControlName="questionTime" placeholder="Question Time">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Question Score</mat-label>
+      <input matInput type="number" formControlName="questionScore" placeholder="Question Score">
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions [align]="'end'" >
+  <button type="button" class="btn btn-outline-danger" mat-dialog-close>Close</button>
+  <button style="margin-left: 8px" type="button" class="btn btn-outline-success" (click)="addQuestion()" >{{actionBtn}}</button>
+
+</div>
+
+
+

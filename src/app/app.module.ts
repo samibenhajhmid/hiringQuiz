@@ -23,7 +23,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {FlexLayoutModule} from "@angular/flex-layout";
-import { AddQuizComponent } from './modals/add-quiz/add-quiz.component';
+
 import {MatIconModule} from "@angular/material/icon";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from "@angular/material/select";
@@ -39,11 +39,13 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {QuizService} from "./services/quiz.service";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ConfirmDeleteComponent} from "./modals/confirm-delete/confirm-delete.component";
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule} from '@angular/material/dialog';
 import { UserListComponent } from './components/client-dashboard/user-list/user-list.component';
 import { EditQuizComponent } from './components/client-dashboard/edit-quiz/edit-quiz.component';
 import { AddQuizDialogComponent } from './modals/add-quiz-dialog/add-quiz-dialog.component';
-
+import {MatNativeDateModule} from "@angular/material/core";
+import { QuestionsListComponent } from './components/client-dashboard/questions-list/questions-list.component';
+import { AddQuestionDialogComponent } from './modals/add-question-dialog/add-question-dialog.component'
 
 @NgModule({
   declarations: [
@@ -58,12 +60,13 @@ import { AddQuizDialogComponent } from './modals/add-quiz-dialog/add-quiz-dialog
     RegistrationComponent,
     ClientDashboardComponent,
     QuizCardComponent,
-    AddQuizComponent,
     QuizListComponent,
     ConfirmDeleteComponent,
     UserListComponent,
     EditQuizComponent,
     AddQuizDialogComponent,
+    QuestionsListComponent,
+    AddQuestionDialogComponent,
 
 
   ],
@@ -91,7 +94,8 @@ import { AddQuizDialogComponent } from './modals/add-quiz-dialog/add-quiz-dialog
     MatGridListModule,
     MatDatepickerModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    MatNativeDateModule,
 
 
   ],

@@ -9,7 +9,6 @@ import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {Question} from "../../../interfaces/question";
 import {ConfirmDeleteComponent} from "../../../modals/confirm-delete/confirm-delete.component";
-import {AddQuizComponent} from "../../../modals/add-quiz/add-quiz.component";
 import {QuizService} from "../../../services/quiz.service";
 @Component({
   selector: 'app-edit-quiz',
@@ -34,14 +33,14 @@ export class EditQuizComponent implements OnInit, OnDestroy {
     this._onDestroy.complete();
   }
   ngOnInit() {
-    this.getQuestionsByQuiz(history.state.data)
+    this.getQuestionsByQuizId(history.state.data)
 
 
   }
 
 
-  getQuestionsByQuiz(id :any) {
-    this.questionService.getQuestionsByQuizService(history.state.data).subscribe(
+  getQuestionsByQuizId(id :any) {
+    this.questionService.getQuestionsByQuizIdService(history.state.data).subscribe(
       response => {
         console.log(response);
         this.questions = response;
@@ -69,7 +68,7 @@ export class EditQuizComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
       console.log('removing: ', isDeleteConfirmed);
       if (isDeleteConfirmed) {
-        this.questionService.removeQuestionById(id).then(() => this.getQuestionsByQuiz(id));
+        this.questionService.removeQuestionById(id).then(() => this.getQuestionsByQuizId(id));
       }
     });
   }
@@ -82,15 +81,9 @@ export class EditQuizComponent implements OnInit, OnDestroy {
     this.listData.filter = this.searchKey.trim().toLowerCase();
 
   }
-  openDialog() {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    const dialogRef = this.dialog.open(AddQuizComponent, dialogConfig);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
+  openDialog() {
+
   }
 
 }

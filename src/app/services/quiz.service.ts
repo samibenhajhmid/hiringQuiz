@@ -10,16 +10,11 @@ import {environment} from "../../environments/environment";
 })
 export class QuizService {
   private path = `${environment.gatewayEndpoint}`;
+
   //public placeholderMembers: Quiz[] = GLOBAL._DB.members;
 
   constructor(private httpClient: HttpClient) { }
 
-
-
- // getAllQuizs(): Promise<Quiz[]> {
-   // return this.httpClient.get<Quiz[]>(`${this.path}/quisz`).toPromise();
-
- // }
   removeQuizById(id: string): Promise<void> {
     return this.httpClient.delete<void>(`${this.path}/quizs/${id}`).toPromise();
     //this.placeholderMembers = this.placeholderMembers.filter(item => item.id !== id);
@@ -34,12 +29,20 @@ export class QuizService {
   return this.httpClient.get('http://localhost:8080/quizs')
   }
 
-  /*editQuizService(id: string):Observable<any>{
-    return this.httpClient.put(`${this.path}/quizs/update${id}`)
-  }
-  */
-
   getQuizsByIdService(id: string):Observable<any>{
     return this.httpClient.get(`${this.path}/quizs/${id}`)
   }
+
+  updateQuizService(id: string, quiz: any ):Observable<any>{
+  return this.httpClient.put(`${this.path}/quizs/update/${id}`, quiz)}
+
+  getQuizByTitleService(title: string):Observable<any>{
+    return this.httpClient.get(`${this.path}/quizs/title/${title}`)
+  }
+
+
 }
+
+
+
+

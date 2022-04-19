@@ -1,5 +1,5 @@
 export class Quiz {
-  id: 1;
+  id: number;
   title: string;
   description: string;
   isPublished: boolean;

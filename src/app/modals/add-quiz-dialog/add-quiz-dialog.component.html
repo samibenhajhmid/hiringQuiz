@@ -1,4 +1,40 @@
 <h1 mat-dialog-title>Add Quiz Form</h1>
 <div mat-dialog-content>
-
+  <form [formGroup]="quizForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Quiz Title</mat-label>
+      <input formControlName="title" matInput placeholder="Title">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Quiz Level</mat-label>
+      <mat-select formControlName="level" placeholder="Level">
+        <mat-option value="BEGINNER">Beginner</mat-option>
+        <mat-option value="INTERMIDIATE">Intermidiate</mat-option>
+        <mat-option value="ADVANCED">Advanced</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Quiz Description</mat-label>
+      <input matInput formControlName="description" placeholder="Description">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Creation Date</mat-label>
+      <input matInput formControlName="creationDate" [matDatepicker]="picker">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <h3>Is Published</h3>
+    <mat-radio-group formControlName="isPublished" class="example-radio-group">
+      <mat-radio-button class="example-radio-button" *ngFor="let isPublished of publicationState" [value]="isPublished">
+        {{isPublished}}
+      </mat-radio-button>
+    </mat-radio-group>
+  </form>
 </div>
+  <div mat-dialog-actions [align]="'end'" >
+    <button type="button" class="btn btn-outline-danger" mat-dialog-close>Close</button>
+    <button style="margin-left: 8px" type="button" class="btn btn-outline-success" (click)="addQuiz()" >{{actionBtn}}</button>
+
+  </div>
+
+

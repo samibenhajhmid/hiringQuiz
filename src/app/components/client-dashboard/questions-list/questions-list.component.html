@@ -1,7 +1,7 @@
 <div class="container">
   <mat-toolbar>
     <span class="fill-remaining-space"></span>
-    <span>Quizzes List</span>
+    <span>Questions List</span>
     <span class="fill-remaining-space"></span>
   </mat-toolbar>
 </div>
@@ -22,36 +22,35 @@
       <mat-header-cell *matHeaderCellDef  mat-sort-header>ID</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>Title</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.title}}</mat-cell>
+    <ng-container matColumnDef="questionText">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header>Question Text</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.questionText}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="description">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header>Description</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+    <ng-container matColumnDef="category">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Category</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.category}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="level">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Level</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.level}}</mat-cell>
+    <ng-container matColumnDef="questionQuiz">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Related Quiz</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.quiz.title}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="creationDate">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        {{element.creationDate | date :'d MMMM y, HH:mm'}}</mat-cell>
+    <ng-container matColumnDef="questionTime">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Question Time</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.questionTime}}</mat-cell>
     </ng-container>
-    <ng-container matColumnDef="isPublished">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Published</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.isPublished}}</mat-cell>
+    <ng-container matColumnDef="questionScore">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Question Score</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.questionScore}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="actions" stickyEnd>
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="getQuizsById(element.id)"><mat-icon>launch</mat-icon></button>
-        <button mat-icon-button (click)="editQuiz(element)" color="primary">
+        <button mat-icon-button (click)="getAllQuestions()"><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button (click)="editQuestion(element)" color="primary">
           <mat-icon>edit</mat-icon>
 
         </button>
-        <button mat-icon-button color="warn" (click)="onRemoveQuiz(element.id)"><mat-icon>delete_outline</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="onRemoveQuestion(element.id)"><mat-icon>delete_outline</mat-icon></button>
 
       </mat-cell>
     </ng-container>
@@ -72,3 +71,4 @@
   </mat-table>
   <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
 </div>
+
