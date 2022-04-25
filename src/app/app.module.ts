@@ -40,13 +40,16 @@ import {QuizService} from "./services/quiz.service";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {ConfirmDeleteComponent} from "./modals/confirm-delete/confirm-delete.component";
 import { MatDialogModule} from '@angular/material/dialog';
-import { UserListComponent } from './components/client-dashboard/user-list/user-list.component';
-import { EditQuizComponent } from './components/client-dashboard/edit-quiz/edit-quiz.component';
 import { AddQuizDialogComponent } from './modals/add-quiz-dialog/add-quiz-dialog.component';
 import {MatNativeDateModule} from "@angular/material/core";
 import { QuestionsListComponent } from './components/client-dashboard/questions-list/questions-list.component';
-import { AddQuestionDialogComponent } from './modals/add-question-dialog/add-question-dialog.component'
-
+import { AddQuestionDialogComponent } from './modals/add-question-dialog/add-question-dialog.component';
+import { CandidateListComponent } from './components/client-dashboard/candidate-list/candidate-list.component';
+import { AddCandidateDialogComponent } from './modals/add-candidate-dialog/add-candidate-dialog.component';
+import { AddAnswerDialogComponent } from './modals/add-answer-dialog/add-answer-dialog.component';
+import { AssessmentComponent } from './components/assessment/assessment.component';
+import { AddAssessmentDialogComponent } from './modals/add-assessment-dialog/add-assessment-dialog.component'
+import {AssessmentsListComponent} from "./components/client-dashboard/assessments-list/assessments-list.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,11 +65,15 @@ import { AddQuestionDialogComponent } from './modals/add-question-dialog/add-que
     QuizCardComponent,
     QuizListComponent,
     ConfirmDeleteComponent,
-    UserListComponent,
-    EditQuizComponent,
     AddQuizDialogComponent,
     QuestionsListComponent,
     AddQuestionDialogComponent,
+    CandidateListComponent,
+    AddCandidateDialogComponent,
+    AddAnswerDialogComponent,
+    AssessmentComponent,
+    AssessmentsListComponent,
+    AddAssessmentDialogComponent,
 
 
   ],
@@ -100,8 +107,8 @@ import { AddQuestionDialogComponent } from './modals/add-question-dialog/add-que
 
   ],
   providers: [QuizService],
-  exports: [ClientDashboardComponent],
-  bootstrap: [AppComponent,ClientDashboardComponent],
+  exports: [],
+  bootstrap: [AppComponent],
   entryComponents:[ConfirmDeleteComponent]
 })
 export class AppModule { }

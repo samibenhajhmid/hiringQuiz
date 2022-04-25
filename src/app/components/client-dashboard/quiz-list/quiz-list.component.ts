@@ -24,7 +24,7 @@ export class QuizListComponent implements OnInit, OnDestroy {
               private quizService: QuizService, private _route: Router) {}
   //quizs: Quiz[] = [];
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'title', 'description', 'level', 'creationDate', 'isPublished', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'description', 'level', 'relatedAssessment' ,'creationDate', 'actions'];
   //quiz = new Quiz();
 
   @ViewChild(MatSort) sort: MatSort ;
@@ -67,9 +67,12 @@ export class QuizListComponent implements OnInit, OnDestroy {
       }
     })
   }
+
+
   getAllQuizzes(){
-   this.quizService.getQuizsService().subscribe({
+   this.quizService.getAllQuizzesService().subscribe({
      next:(res)=>{
+
        this.dataSource = new MatTableDataSource(res);
        this.dataSource.sort = this.sort;
        this.dataSource.paginator = this.paginator;

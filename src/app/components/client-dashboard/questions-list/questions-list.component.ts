@@ -14,6 +14,7 @@ import {ConfirmDeleteComponent} from "../../../modals/confirm-delete/confirm-del
 import {AddQuizDialogComponent} from "../../../modals/add-quiz-dialog/add-quiz-dialog.component";
 import {AddQuestionDialogComponent} from "../../../modals/add-question-dialog/add-question-dialog.component";
 import {listenToTriggers} from "@ng-bootstrap/ng-bootstrap/util/triggers";
+import {AddAnswerDialogComponent} from "../../../modals/add-answer-dialog/add-answer-dialog.component";
 
 @Component({
   selector: 'app-questions-list',
@@ -30,7 +31,7 @@ export class QuestionsListComponent implements OnInit, OnDestroy {
 
 
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'questionText', 'category', 'questionQuiz', 'questionTime', 'questionScore', 'actions'];
+  displayedColumns: string[] = ['id', 'questionText', 'category', 'relatedQuiz', 'questionTime', 'questionScore', 'actions'];
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   display = false;
@@ -100,6 +101,19 @@ export class QuestionsListComponent implements OnInit, OnDestroy {
     })
   }
 
+  getAllQuestions(){
+    this.questionService.getAllQuestionsService().subscribe({
+      next:(res)=>{
+
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      error:(err)=>{
+        alert("Error while fetching the Records!");
+      }
+    })
+  }
 
   editQuestion(element:any){
     this.dialog.open(AddQuestionDialogComponent,{
@@ -113,18 +127,14 @@ export class QuestionsListComponent implements OnInit, OnDestroy {
   }
 
 
- getAllQuestions() {
-   this.questionService.getAllQuestionsService().subscribe({
-     next:(res)=>{
-       this.dataSource = new MatTableDataSource(res);
 
-       this.dataSource.sort = this.sort;
-       this.dataSource.paginator = this.paginator;
-     },
-     error:(err)=>{
-       alert("Error while fetching the Records!");
-     }
-   })
+  OpenAnswerDialog(element: any) {
+    const dialogRef = this.dialog.open(AddAnswerDialogComponent, {
+      hasBackdrop: true,
+      disableClose: false,
+      data:element
+    });
 
   }
+
 }

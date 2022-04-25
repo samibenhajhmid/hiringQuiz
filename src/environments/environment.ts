@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  gatewayEndpoint: 'http://localhost:8080',
+  gatewayEndpoint: 'http://localhost:8080/api/',
 };
 /*
  * For easier debugging in development mode, you can import the following file

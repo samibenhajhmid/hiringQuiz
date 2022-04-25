@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Add Answer Form</h1>
+<div mat-dialog-content>
+<form [formGroup]="answerForm">
+
+  <div formArrayName="answer">
+    <div
+      *ngFor="let passengerGroup of answer?.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <h3 class="text-primary">Answer - {{i + 1}}</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" placeholder="Answer Text"></textarea>
+      </mat-form-field>
+      <h4>Is Correct</h4>
+      <mat-radio-group formControlName="isCorrect" class="example-radio-group">
+        <mat-radio-button class="example-radio-button" *ngFor="let isCorrect of correctState" [value]="isCorrect">
+          {{isCorrect}}
+        </mat-radio-button>
+      </mat-radio-group>
+      <div>
+      <mat-form-field hidden = "true">
+        <input hidden = "true" formControlName="relatedQuestion" matInput placeholder="related Question">
+      </mat-form-field>
+      </div>
+    </div>
+  </div>
+</form>
+<div mat-dialog-actions [align]="'end'" >
+  <button type="button" class="btn btn-outline-primary" (click)="addAnswer()" >Add Answer</button>
+  <button style="margin-left: 8px" type="button" class="btn btn-outline-danger" mat-dialog-close>Close</button>
+  <button style="margin-left: 8px" type="button" class="btn btn-outline-success" (click)="saveAnswers()" >Save</button>
+</div>
+</div>
+
+<!--form - {{answerForm.value | json}}-->

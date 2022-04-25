@@ -17,9 +17,9 @@
     </mat-form-field>
     <mat-form-field appearance="outline">
       <mat-label>Related Quiz</mat-label>
-      <mat-select formControlName="questionQuiz" placeholder="Related Quiz">
-      <mat-option  *ngFor="let questionQuiz of questionQuizState" [value]="questionQuiz">
-        {{questionQuiz}}
+      <mat-select formControlName="relatedQuiz" placeholder="Related Quiz">
+      <mat-option  *ngFor="let relatedQuiz of questionQuizState" [value]="relatedQuiz">
+        {{relatedQuiz}}
       </mat-option>
       </mat-select>
     </mat-form-field>

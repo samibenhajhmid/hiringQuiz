@@ -1,4 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from "../../services/user.service";
+import {Router} from "@angular/router";
+import {User} from "../../interfaces/user";
+
+class CandidateLoginObject {
+  id:number;
+  email:string;
+  password:string;
+  assessmentCode:string;
+  constructor() {
+  }
+}
 
 @Component({
   selector: 'app-assessment-taker-login',
@@ -6,10 +18,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./assessment-taker-login.component.css']
 })
 export class AssessmentTakerLoginComponent implements OnInit {
-
-  constructor() { }
+  candidateLoginObject  = new CandidateLoginObject();
+  msg = '';
+  constructor(private userService : UserService, private route: Router) { }
 
   ngOnInit(): void {
   }
+  candidateLogin(){
+    this.userService.candidateLoginService(this.candidateLoginObject).subscribe(
+      data => {console.log("response recieved");
+        console.log(this.candidateLoginObject);
+        this.route.navigate(['/assessment']
+        )
 
+      },
+      error => {console.log("Exception occured");
+        this.msg = 'Bad Credentials , please enter valid email and password'
+      })
+  }
 }

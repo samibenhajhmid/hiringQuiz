@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {QuizService} from "../../services/quiz.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {AssessmentService} from "../../services/assessment.service";
 
 @Component({
   selector: 'app-add-quiz-dialog',
@@ -10,10 +11,11 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 })
 export class AddQuizDialogComponent implements OnInit {
   publicationState = [true, false];
+  quizAssessmentState =[];
   quizForm !: FormGroup;
   actionBtn: string = "Save"
 
-  constructor(private formBuilder: FormBuilder, private quizService: QuizService,
+  constructor(private formBuilder: FormBuilder, private quizService: QuizService, private assessmentService: AssessmentService,
               @Inject(MAT_DIALOG_DATA) public editData: any, private dialogRef: MatDialogRef<AddQuizDialogComponent>) {
   }
 
@@ -22,6 +24,7 @@ export class AddQuizDialogComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       level: ['', Validators.required],
+      relatedAssessment: ['', Validators.required],
       creationDate: ['', Validators.required],
       isPublished: ['', Validators.required],
 
@@ -31,9 +34,11 @@ export class AddQuizDialogComponent implements OnInit {
       this.quizForm.controls['title'].setValue(this.editData.title)
       this.quizForm.controls['description'].setValue(this.editData.description)
       this.quizForm.controls['level'].setValue(this.editData.level)
+      this.quizForm.controls['relatedAssessment'].setValue(this.editData.relatedAssessment)
       this.quizForm.controls['creationDate'].setValue(this.editData.creationDate)
       this.quizForm.controls['isPublished'].setValue(this.editData.isPublished)
     }
+    this.getRelatedAssessment()
   }
 
   addQuiz() {
@@ -56,19 +61,32 @@ export class AddQuizDialogComponent implements OnInit {
       this.updateQuiz()
     }
   }
+
+
   updateQuiz()
-    {
+  {
 
-      this.quizService.updateQuizService(this.editData.id, this.quizForm.value ).subscribe({
-        next: (res) => {
-          alert("quiz Updated Successfully");
-          this.quizForm.reset();
-          this.dialogRef.close("Update");
-        },
-        error: () => {
-          alert("Error while updating record");
+    this.quizService.updateQuizService(this.editData.id, this.quizForm.value ).subscribe({
+      next: (res) => {
+        alert("quiz Updated Successfully");
+        this.quizForm.reset();
+        this.dialogRef.close("Update");
+      },
+      error: () => {
+        alert("Error while updating record");
 
-        }
-      })
-    }
+      }
+    })
   }
+
+  getRelatedAssessment(){
+    this.assessmentService.getAllAssessmentsService().subscribe({
+      next: (res) =>{
+        for(let element of res){
+          this.quizAssessmentState.push(element.title)
+        }
+
+      }
+    })
+  }
+}

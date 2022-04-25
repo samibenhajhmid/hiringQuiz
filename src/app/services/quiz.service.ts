@@ -1,48 +1,43 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {Quiz} from "../interfaces/quiz";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpResponse} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {IQuiz} from "../shared/model/quiz.model";
 
+type EntityResponseType = HttpResponse<IQuiz>;
+type EntityArrayResponseType = HttpResponse<IQuiz[]>;
 
 @Injectable({
   providedIn: 'root'
 })
 export class QuizService {
-  private path = `${environment.gatewayEndpoint}`;
+  private resourceUrl = `${environment.gatewayEndpoint}` + 'quizzes';
 
-  //public placeholderMembers: Quiz[] = GLOBAL._DB.members;
-
-  constructor(private httpClient: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   removeQuizById(id: string): Promise<void> {
-    return this.httpClient.delete<void>(`${this.path}/quizs/${id}`).toPromise();
-    //this.placeholderMembers = this.placeholderMembers.filter(item => item.id !== id);
-   // return new Promise(resolve => resolve());
+    return this.http.delete<void>(`${this.resourceUrl}/${id}`).toPromise();
   }
 
-  public addQuizService(quiz: Quiz):Observable<any> {
-    return this.httpClient.post("http://localhost:8080/quizs/create", quiz)
+  getAllQuizzesService(): Observable<any> {
+    return this.http.get('http://localhost:8080/api/quizzes')
   }
 
-  getQuizsService(): Observable<any>{
-  return this.httpClient.get('http://localhost:8080/quizs')
+  getQuizsByIdService(id: string): Observable<any> {
+    return this.http.get(`${this.resourceUrl}/quizzes/${id}`)
   }
 
-  getQuizsByIdService(id: string):Observable<any>{
-    return this.httpClient.get(`${this.path}/quizs/${id}`)
+  updateQuizService(id: any, quiz: Quiz): Observable<any> {
+    return this.http.put(`${this.resourceUrl}/update/${id}`, quiz)
   }
 
-  updateQuizService(id: string, quiz: any ):Observable<any>{
-  return this.httpClient.put(`${this.path}/quizs/update/${id}`, quiz)}
-
-  getQuizByTitleService(title: string):Observable<any>{
-    return this.httpClient.get(`${this.path}/quizs/title/${title}`)
+  getQuizByTitleService(title: string): Observable<any> {
+    return this.http.get(`${this.resourceUrl}/${title}`)
   }
 
-
+addQuizService(quiz: Quiz):Observable<any>{
+    return this.http.post('http://localhost:8080/api/quizzes/create', quiz);
 }
-
-
-
-
+}

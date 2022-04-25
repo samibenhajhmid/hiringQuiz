@@ -5,10 +5,9 @@ export class Question {
   id: number;
   questionText: string;
   category: string;
-  //questionQuiz : string;
+  relatedQuiz:string;
   questionTime: number;
   questionScore: number;
-  quiz:Quiz;
   constructor() {
   }
 

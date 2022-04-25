@@ -34,14 +34,14 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header>Level</mat-header-cell>
       <mat-cell *matCellDef="let element">{{element.level}}</mat-cell>
     </ng-container>
+    <ng-container matColumnDef="relatedAssessment">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Related Assessment</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{element.relatedAssessment}}</mat-cell>
+    </ng-container>
     <ng-container matColumnDef="creationDate">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Creation Date</mat-header-cell>
       <mat-cell *matCellDef="let element">
         {{element.creationDate | date :'d MMMM y, HH:mm'}}</mat-cell>
-    </ng-container>
-    <ng-container matColumnDef="isPublished">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Published</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.isPublished}}</mat-cell>
     </ng-container>
     <ng-container matColumnDef="actions" stickyEnd>
       <mat-header-cell *matHeaderCellDef></mat-header-cell>

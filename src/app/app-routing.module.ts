@@ -6,8 +6,9 @@ import {AppComponent} from "./app.component";
 import {HomeComponent} from "./components/home/home.component";
 import {ClientDashboardComponent} from "./components/client-dashboard/client-dashboard.component";
 import {RegistrationComponent} from "./components/registration/registration.component";
-import {EditQuizComponent} from "./components/client-dashboard/edit-quiz/edit-quiz.component";
 import {QuestionsListComponent} from "./components/client-dashboard/questions-list/questions-list.component";
+import {AssessmentTakerLoginComponent} from "./components/assessment-taker-login/assessment-taker-login.component";
+import {AssessmentComponent} from "./components/assessment/assessment.component";
 
 
 
@@ -17,6 +18,8 @@ const routes: Routes = [
   {path: 'clientDashboard', component: ClientDashboardComponent },
   {path: 'registration', component: RegistrationComponent},
   {path: 'clientDashboard/questions', component: QuestionsListComponent},
+  {path: 'assessmentTakerLogin', component:AssessmentTakerLoginComponent},
+  {path: 'assessment',component:AssessmentComponent}
 ];
 
 @NgModule({

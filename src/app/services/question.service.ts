@@ -10,28 +10,28 @@ import {QuizService} from "./quiz.service";
   providedIn: 'root'
 })
 export class QuestionService {
-  private path = `${environment.gatewayEndpoint}`;
-  private quiz:Quiz
-  constructor(private httpClient: HttpClient, private quizService: QuizService) { }
+  private resourceUrl = `${environment.gatewayEndpoint}`+'questions';
+  private question:Question;
+  constructor(private http: HttpClient) { }
 
-  getQuestionsByQuizIdService(id: string): Observable<any>{
-    return this.httpClient.get(`${this.path}/questions/quiz/${id}`)
-  }
+
   removeQuestionById(id: string): Promise<void> {
-    return this.httpClient.delete<void>(`${this.path}/questions/${id}`).toPromise();
-    //this.placeholderMembers = this.placeholderMembers.filter(item => item.id !== id);
-    // return new Promise(resolve => resolve());
-  }
-  public addQuestionService(question: Question):Observable<any> {
-
-    return this.httpClient.post("http://localhost:8080/questions/create", question)
-  }
-  updateQuestionService(id: string, question: any ):Observable<any>{
-    return this.httpClient.put(`${this.path}/questions/update/${id}`, question)}
-
-  getAllQuestionsService():Observable<any> {
-    return this.httpClient.get('http://localhost:8080/questions/')
+    return this.http.delete<void>(`${this.resourceUrl}/${id}`).toPromise();
   }
 
+  getAllQuestionsService(): Observable<any> {
+    return this.http.get('http://localhost:8080/api/questions')
+  }
+
+  getQuestionByIdService(id: string): Observable<any> {
+    return this.http.get(`${this.resourceUrl}/questions/${id}`)
+  }
+
+  updateQuestionService(id: any, question: Question): Observable<any> {
+    return this.http.put(`${this.resourceUrl}/update/${id}`, question)
+  }
+
+  addQuestionService(question: Question):Observable<any>{
+    return this.http.post('http://localhost:8080/api/questions/create', question);
+  }
 }
-

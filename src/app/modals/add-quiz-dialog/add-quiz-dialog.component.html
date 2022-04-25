@@ -18,6 +18,14 @@
       <input matInput formControlName="description" placeholder="Description">
     </mat-form-field>
     <mat-form-field appearance="outline">
+      <mat-label>Related Assessment</mat-label>
+      <mat-select formControlName="relatedAssessment" placeholder="Related Assessment">
+        <mat-option  *ngFor="let relatedAssessment of quizAssessmentState" [value]="relatedAssessment">
+          {{relatedAssessment}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
       <mat-label>Creation Date</mat-label>
       <input matInput formControlName="creationDate" [matDatepicker]="picker">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -36,5 +44,6 @@
     <button style="margin-left: 8px" type="button" class="btn btn-outline-success" (click)="addQuiz()" >{{actionBtn}}</button>
 
   </div>
+
 
 

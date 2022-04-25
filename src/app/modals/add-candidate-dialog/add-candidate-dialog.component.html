@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Add Candidate Form</h1>
+<div mat-dialog-content>
+  <form [formGroup]="candidateForm">
+    <mat-form-field appearance="outline">
+      <mat-label>First Name</mat-label>
+      <input formControlName="firstName" matInput placeholder="First Name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Last Name</mat-label>
+      <input formControlName="lastName" matInput placeholder="Last Name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" placeholder="Email">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-hint *ngIf="!passwordInput.value">Enter your password</mat-hint>
+    </mat-form-field>
+
+  </form>
+</div>
+<div mat-dialog-actions [align]="'end'" >
+  <button type="button" class="btn btn-outline-danger" mat-dialog-close>Close</button>
+  <button style="margin-left: 8px" type="button" class="btn btn-outline-success" (click)="addCandidate()" >{{actionBtn}}</button>
+
+</div>
+
+
+

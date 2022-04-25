@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'hiringQuiz';
   title1 = 'Demo';
   greeting : any = {};
-  constructor(private http: HttpClient) {
-    http.get('resource').subscribe(data => this.greeting = data);
+  constructor() {
+
   }
 }
