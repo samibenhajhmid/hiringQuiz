@@ -34,4 +34,11 @@ export class QuestionService {
   addQuestionService(question: Question):Observable<any>{
     return this.http.post('http://localhost:8080/api/questions/create', question);
   }
+
+  getQuestionsByQuizService(quizId: any):Observable<any>
+  {
+    return this.http.get(`${this.resourceUrl}/quiz/${quizId}`)
+  }
+
+
 }

@@ -29,7 +29,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from "@angular/material/select";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
-import {MatRadioModule} from "@angular/material/radio";
+import {MatRadioChange, MatRadioModule} from "@angular/material/radio";
 import { QuizListComponent } from './components/client-dashboard/quiz-list/quiz-list.component';
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
@@ -50,6 +50,10 @@ import { AddAnswerDialogComponent } from './modals/add-answer-dialog/add-answer-
 import { AssessmentComponent } from './components/assessment/assessment.component';
 import { AddAssessmentDialogComponent } from './modals/add-assessment-dialog/add-assessment-dialog.component'
 import {AssessmentsListComponent} from "./components/client-dashboard/assessments-list/assessments-list.component";
+import {MatDividerModule} from "@angular/material/divider";
+import { AssessmentEntryComponent } from './modals/assessment-entry/assessment-entry.component';
+import { StartQuizComponent } from './components/assessment/start-quiz/start-quiz.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,38 +78,43 @@ import {AssessmentsListComponent} from "./components/client-dashboard/assessment
     AssessmentComponent,
     AssessmentsListComponent,
     AddAssessmentDialogComponent,
+    AssessmentEntryComponent,
+    StartQuizComponent,
 
 
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    NgbModule,
-    MatCardModule,
-    MatToolbarModule,
-    MatButtonModule,
-    FlexLayoutModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule,
-    MatRadioModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatCheckboxModule,
-    MatGridListModule,
-    MatDatepickerModule,
-    MatSnackBarModule,
-    MatDialogModule,
-    MatNativeDateModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        NgbModule,
+        MatCardModule,
+        MatToolbarModule,
+        MatButtonModule,
+        FlexLayoutModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatSelectModule,
+        MatInputModule,
+        MatRadioModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatCheckboxModule,
+        MatGridListModule,
+        MatDatepickerModule,
+        MatSnackBarModule,
+        MatDialogModule,
+        MatNativeDateModule,
+        MatDividerModule,
+        MatProgressSpinnerModule,
 
 
-  ],
+
+    ],
   providers: [QuizService],
   exports: [],
   bootstrap: [AppComponent],

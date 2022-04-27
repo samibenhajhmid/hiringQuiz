@@ -45,7 +45,7 @@
     <ng-container matColumnDef="actions" stickyEnd>
       <mat-header-cell *matHeaderCellDef></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <button mat-icon-button (click)="OpenAnswerDialog(element)"><mat-icon>launch</mat-icon></button>
+        <button class="btn btn-outline-success" (click)="OpenAnswerDialog(element)">Answers</button>
         <button mat-icon-button (click)="editQuestion(element)" color="primary">
           <mat-icon>edit</mat-icon>
 

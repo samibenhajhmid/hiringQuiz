@@ -25,5 +25,9 @@ private answer: Answer;
     return this.http.post('http://localhost:8080/api/answers/create', answer);
   }
 
+  getAnswersByQuestionId(id:any):Observable<any> {
+    return this.http.get(`${this.resourceUrl}/question/${id}`)
+
+  }
 }
 

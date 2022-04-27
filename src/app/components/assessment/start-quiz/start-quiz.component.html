@@ -1,0 +1,42 @@
+<!-- Spinner -->
+<div class="spinner" *ngIf="isLoading" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center center"
+     fxFlexFill="100%">
+  <mat-spinner></mat-spinner>
+</div>
+<!-- Quiz container -->
+<div id="quiz-container" *ngIf="questionData && !isLoading" fxLayout="row" fxLayout.xs="column"
+     fxLayoutAlign="center center" fxFlexFill="100%">
+  <!-- Timer -->
+  <div class="display-timer">
+    <button mat-flat-button color="primary">
+      {{quizService.displayTimeElapsed()}}
+    </button>
+  </div>
+  <mat-card class="mat-elevation-z5" fxFlex="50%" fxFlex.xs="100%" fxLayout.xs="column" [style]="valueAsStyle" >
+    <mat-card-header>
+      <!-- Question -->
+      <mat-card-title>{{quizService.qnProgress+1}}.{{questionData[quizService.qnProgress].questionText}}
+      </mat-card-title>
+    </mat-card-header>
+    <!-- Image -->
+    <mat-card-content >
+      <!-- Options -->
+
+      <mat-radio-group class="example-radio-group" fxLayout="column" [(ngModel)]="selectedAnswer">
+        <mat-radio-button class="example-radio-button" *ngFor="let answer of answerData[quizService.qnProgress] " [value]="answer.description">
+          {{answer.description}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </mat-card-content>
+    <!-- Previous and Next button -->
+    <mat-card-actions>
+      <div class="btnGroup">
+        <button mat-raised-button color="primary" (click)="clickPrevBtn()" [disabled]="!checkPrev">Prev</button>
+        <button mat-raised-button color="primary"
+                (click)="clickNextBtn()"
+                [disabled]="!checkNext">Next</button>
+        <button class="btn badge-danger" (click)="submitAnswers()">Submit</button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

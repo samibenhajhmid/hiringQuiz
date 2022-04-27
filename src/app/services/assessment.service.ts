@@ -39,4 +39,5 @@ export class AssessmentService {
   addAssessmentService(assessment: Assessment):Observable<any>{
     return this.http.post('http://localhost:8080/api/assessments/create', assessment);
   }
+
 }

@@ -20,6 +20,7 @@ export class ClientDashboardComponent implements OnInit {
   openDialog() {
     this.dialog.open(AddQuizDialogComponent, {
   width:'30%'
+
     });
   }
 

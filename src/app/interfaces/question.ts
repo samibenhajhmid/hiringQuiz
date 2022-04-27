@@ -8,6 +8,7 @@ export class Question {
   relatedQuiz:string;
   questionTime: number;
   questionScore: number;
+  participantAnswer: Boolean;
   constructor() {
   }
 
