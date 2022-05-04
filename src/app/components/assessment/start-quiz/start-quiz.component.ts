@@ -1,16 +1,16 @@
-
-import { Component,HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import Swal from 'sweetalert2';
 import {DomSanitizer} from "@angular/platform-browser";
 import {Router} from "@angular/router";
-import {QuestionModal, Quiz} from "../../../interfaces/quiz";
-import {MatRadioChange} from "@angular/material/radio";
-import {QuestionService} from "../../../services/question.service";
-import {QuizService} from "../../../services/quiz.service";
-import {Question} from "../../../interfaces/question";
-import {AnswerService} from "../../../services/answer.service";
-import {Answer} from "../../../interfaces/answer";
-import {CandidateAnswerService} from "../../../services/candidate-answer.service";
+import {QuestionService} from "../../../shared/services/question.service";
+import {QuizService} from "../../../shared/services/quiz.service";
+import {Question} from "../../../shared/models/question";
+import {AnswerService} from "../../../shared/services/answer.service";
+import {CandidateAnswerService} from "../../../shared/services/candidate-answer.service";
+import {CandidateAnswer} from "../../../shared/models/candidateAnswer";
+import {SessionService} from "../../../shared/services/session.service";
+import {Session} from "../../../shared/models/session";
+
 
 
 @Component({
@@ -19,44 +19,71 @@ import {CandidateAnswerService} from "../../../services/candidate-answer.service
   styleUrls: ['./start-quiz.component.scss']
 })
 export class StartQuizComponent implements OnInit {
-  i= 0;
+  actionBtn: string = "Next"
   selectedAnswer: string;
   isLoading: Boolean = false;
-  questionData:Question[];
-  answerData: any[] =[];
-  private answer: any;
+  questionData: Question[];
+  answerData: any[] = [];
+  private nbQuestions: number;
+  private nbQuestionsInprogress: number;
+  currentAnswer: CandidateAnswer = {
+    id: undefined,
+    description: undefined,
+    relatedQuestion: undefined,
+    relatedQuiz: undefined,
+    relatedAssessment: undefined,
+    relatedUser: undefined,
+  };
+  private session: Session = {
+    id:undefined,
+    relatedQuiz:undefined,
+    passedTime:undefined,
+    relatedAssessment:undefined,
+    relatedUser:undefined
 
-  constructor(private candidateAnswer: CandidateAnswerService, private questionService: QuestionService, public quizService: QuizService, private answerService: AnswerService, public sanitizer: DomSanitizer, public router: Router) { }
+  };
+
+
+  constructor(private candidateAnswerService: CandidateAnswerService, private sessionService: SessionService,
+              private questionService: QuestionService, public quizService: QuizService, private answerService: AnswerService,
+              public sanitizer: DomSanitizer, public router: Router) {
+  }
 
   ngOnInit(): void {
     this.quizService.qnProgress = 0;
     this.quizService.seconds = 0;
-    this.getQuizQuestionsData(1);
-    // this.quizService.addData({ answer: 0, imageName: " ", options: ["True", "False"], question: "Is 'undefined' a data type in javascript?" });
+    this.getQuizQuestionsData(history.state.quizId);
+    console.log('------------->state')
+    console.log(history.state)
+
   }
 
   public get valueAsStyle(): any {
     return this.sanitizer.bypassSecurityTrustStyle(`--progress-bar: ${this.getProgressValue}%`);
   }
 
+
   // Check prev available
-  public get checkPrev(): Boolean {
-    if (this.quizService.qnProgress - 1 >= 0) {
+  /* public get checkPrev(): Boolean {
+     if (this.quizService.qnProgress - 1 >= 0) {
+       return true;
+     }
+     return false;
+   }
+
+   */
+
+  // Check next available
+  public get checkNext(): Boolean {
+    if (this.nbQuestionsInprogress) {
       return true;
     }
     return false;
   }
 
-  // Check next available
-  public get checkNext(): Boolean {
-    if (1) {
-      return true;
-    }
-    return false;
-  }
   // Get Progress Value
   public get getProgressValue() {
-    const progressValue = (this.quizService.qnProgress + 1) * (100 / this.quizService.questionData.length);
+    const progressValue = (this.quizService.qnProgress + 1) * (100 / this.nbQuestions);
     return progressValue;
   }
 
@@ -68,37 +95,26 @@ export class StartQuizComponent implements OnInit {
   //   return false;
   // }
 
-  // To filter the data
-  filterData(id, data) {
-    return {
-      id: id,
-      options: data.options,
-      question: data.question,
-      participantAnswer: -1
-    }
-  }
   // Getting quiz data
-  getQuizQuestionsData(quizId:any) {
+  getQuizQuestionsData(quizId: any) {
     this.isLoading = true;
     this.questionService.getQuestionsByQuizService(quizId).subscribe(
       res => {
-        console.log(res)
         this.questionData = res
         this.isLoading = false;
         this.startTimer();
         this.getQuestionsAnswerData()
+        this.nbQuestions = res.length
+        this.nbQuestionsInprogress = this.nbQuestions
+
       },
-      err => {
+      () => {
         this.isLoading = false;
-        console.log(err);
+        console.log('error getting question Data for this quiz');
       }
     );
   }
 
-
-  radioChange(event: MatRadioChange) {
-    this.quizService.questionData[this.quizService.qnProgress].participantAnswer = event.value;
-  }
 
   // Start timer
   startTimer() {
@@ -108,37 +124,88 @@ export class StartQuizComponent implements OnInit {
   }
 
   // Submit answer or click next
-  clickNextBtn() {
-    console.log(this.selectedAnswer)
-    if (this.checkNext) {
-      this.quizService.qnProgress++;
-      if (this.quizService.questionData.length == this.quizService.qnProgress) {
-        clearInterval(this.quizService.timer);
-        this.router.navigate(['/result']);
-        return;
+  submitCandidateAnswer() {
+    this.currentAnswer.id = this.quizService.qnProgress;
+    this.currentAnswer.description = this.selectedAnswer;
+    this.currentAnswer.relatedQuestion = (this.questionData)[this.quizService.qnProgress].questionText;
+    this.currentAnswer.relatedQuiz = history.state.relatedQuiz;
+    this.currentAnswer.relatedAssessment = history.state.relatedAssessment;
+    this.currentAnswer.relatedUser = history.state.passedData.userEmail;
+    this.candidateAnswerService.addCandidateAnswers(this.currentAnswer).subscribe({
+      next: res => {
+        console.log(res)
+      },
+      error: () => {
+        console.log("error while adding answer")
       }
+    })
+  }
+
+
+
+  clickNextBtn() {
+    if (this.checkNext) {
+      this.nbQuestionsInprogress--;
+      this.quizService.qnProgress++;
+      if (this.nbQuestionsInprogress == 1) {
+        this.actionBtn = 'Submit'
+      }
+      if (this.questionData.length == this.quizService.qnProgress) {
+        console.log(this.quizService.timer)
+        clearInterval(this.quizService.timer);
+        this.goToHomePage();
+      }
+      this.submitCandidateAnswer()
     }
+
+
+  }
+
+  goToHomePage() {
+    Swal.fire('Submited!', '<h2 class="text-success">Thank you for participing</h2>', 'success').then(() => {
+
+      this.router.navigate(['/assessment', history.state.passedData.assessmentCode],
+        {state: {assessmentCode: history.state.passedData.assessmentCode}});
+      this.session.relatedQuiz= history.state.relatedQuiz;
+      this.session.passedTime = this.quizService.timer;
+      this.session.relatedAssessment = history.state.relatedAssessment;
+      this.session.relatedUser=history.state.passedData.userEmail;
+      this.sessionService.addSessionService(this.session).subscribe({
+        next:(res)=>{
+          console.log(res);
+        },
+        error: ()=>{
+          console.log("error while adding records")
+
+      }
+      })
+
+    })
   }
 
   // Prev question
-  clickPrevBtn() {
-    if (!this.checkPrev) {
-      return;
-    }
-    this.quizService.qnProgress--;
+  /* clickPrevBtn() {
+     if (!this.checkPrev) {
+       return;
+     }
+     this.quizService.qnProgress--;
+     //this.allAnswers.pop();
 
-  }
+   }
+
+   */
+
 
   private getQuestionsAnswerData() {
 
-    for (let element of this.questionData){
+    for (let element of this.questionData) {
       console.log(element.id)
       this.answerService.getAnswersByQuestionId(element.id).subscribe({
-        next: res=>{
-         // console.log(res)
+        next: res => {
+          // console.log(res)
           this.answerData.push(res)
         },
-        error :()=>{
+        error: () => {
           alert("Error while getting answers")
         }
       })
@@ -148,15 +215,4 @@ export class StartQuizComponent implements OnInit {
 
   }
 
-  submitAnswers() {
-    this.candidateAnswer.addCandidateAnswers().subscribe({
-      next: res=>{
-        console.log(res)
-        alert("Answers Added Successfully")
-      },
-      error:()=>{
-        alert("Error while Adding Answers")
-      }
-    })
-  }
 }

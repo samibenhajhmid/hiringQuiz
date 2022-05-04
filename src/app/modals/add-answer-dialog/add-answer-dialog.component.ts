@@ -1,11 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {QuestionService} from "../../services/question.service";
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {QuizService} from "../../services/quiz.service";
-import {AnswerService} from "../../services/answer.service";
-import {Question} from "../../interfaces/question";
-
+import {AnswerService} from "../../shared/services/answer.service";
+import {AssessmentService} from "../../shared/services/assessment.service";
+import {Answer} from "../../shared/models/answer";
 
 
 @Component({
@@ -14,62 +12,74 @@ import {Question} from "../../interfaces/question";
   styleUrls: ['./add-answer-dialog.component.css']
 })
 export class AddAnswerDialogComponent implements OnInit {
-  answerForm: FormGroup;
-  correctState= [true, false];
 
-  constructor( private answerService: AnswerService,
-               @Inject(MAT_DIALOG_DATA) public editData: any,
-               private dialogRef: MatDialogRef<AddAnswerDialogComponent>) {}
+  answerForm !: FormGroup;
+  actionBtn: string = "Save"
+  answer: Answer={
+  id: undefined,
+  description: undefined,
+  isCorrect: undefined,
+  relatedQuestion:undefined
+};
+  correctState=[true,false];
 
-
-  ngOnInit() {
-    this.answerForm = new FormGroup({
-      answer: new FormArray([
-        new FormGroup({
-          description: new FormControl(''),
-          isCorrect: new FormControl(''),
-          relatedQuestion: new FormControl(''),
-
-        })
-      ])
-    });
-
+  constructor(private formBuilder: FormBuilder,private answerService: AnswerService,
+              @Inject(MAT_DIALOG_DATA) public editData: any, private dialogRef: MatDialogRef<AddAnswerDialogComponent>) {
   }
 
-  get answer(): FormArray {
-    return this.answerForm.get('answer') as FormArray;
+  ngOnInit(): void {
+    this.answerForm = this.formBuilder.group({
+      description: ['', Validators.required],
+      isCorrect: ['', Validators.required],
+
+    });
+    if (this.editData) {
+      this.actionBtn = 'Update'
+      this.answerForm.controls['description'].setValue(this.editData.description)
+      this.answerForm.controls['isCorrect'].setValue(this.editData.isCorrect)
+
+    }
   }
 
   addAnswer() {
-    this.answer.push(
-      new FormGroup({
-        description: new FormControl(''),
-        isCorrect: new FormControl(''),
-        relatedQuestion: new FormControl(''),
+    if (!this.editData) {
+      this.answer.relatedQuestion=this.answerService.relatedQuestion;
+      this.answer.description = this.answerForm.value.description;
+      this.answer.isCorrect = this.answerForm.value.isCorrect;
+        this.answerService.addAnswerService(this.answer).subscribe({
+          next: () => {
+            alert("Answer added successfully");
+            this.answerForm.reset();
+            this.dialogRef.close("Save");
+          },
+          error: () => {
+            alert("Error while adding the Answer")
+          }
+        })
 
-      })
-    );
-  }
-
-  saveAnswers() {
-
-    for (let i=0; i<this.answer.length; i++)
-    {
-      this.answer.value[i].relatedQuestion =this.editData.questionText
-      this.answerService.addAnswerService(this.answer.value[i]).subscribe({
-        next: (res)=>{
-          alert("Answers added successfully")
-          console.log(this.editData.questionText)
-          console.log(this.answer.value)
-
-        },
-        error: () => {
-          alert("Error while adding the answers")
-          console.log(this.editData.questionText)
-          console.log(this.answer.value)
-
-        }
-      })
+    }
+    else {
+      this.updateAnswer()
     }
   }
+
+
+  updateAnswer()
+  {
+    this.answer.relatedQuestion=this.answerService.relatedQuestion
+    this.answer.description = this.answerForm.value.description
+    this.answer.isCorrect = this.answerForm.value.isCorrect
+    this.answerService.updateAnswerService(this.editData.id, this.answer).subscribe({
+      next: () => {
+        alert("Assessment Updated Successfully");
+        this.answerForm.reset();
+        this.dialogRef.close("Update");
+      },
+      error: () => {
+        alert("Error while updating record");
+
+      }
+    })
+  }
+
 }

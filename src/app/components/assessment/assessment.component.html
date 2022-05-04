@@ -1,29 +1,34 @@
-<div>
+<div xmlns="http://www.w3.org/1999/html">
 
 </div>
 <section>
 <div class="container h-100">
   <div class="row align-middle">
     <div  class="col-md-6 col-lg-4 column"  *ngFor="let item of data">
+
       <div class="card gr-2" *ngIf="item.level == 'BEGINNER'">
         <div class="txt">
-          <h1>{{item.title}}</h1>
+          <h1>{{item.title}}<b>{{item.isPassed}}</b></h1>
           <h3>{{item.level}}</h3>
           <p>{{item.description}}</p>
         </div>
-        <a href="javascript:void(0)" (click)="openDialog(item.id)">Start Now</a>
+        <div *ngIf="item.isEnabled">
+          <a href="javascript:void(0)" (click)="startQuiz(item.id)">Start Now</a>
+        </div>
         <div class="ico-card">
           <i class="fa fa-codepen"></i>
         </div>
       </div>
-      <div *ngIf="item.level=='INTERMIDIATE'"class="card gr-1">
+      <div *ngIf="item.level=='INTERMIDIATE'" class="card gr-1">
         <div class="txt">
-          <h1>{{item.title}}</h1>
+          <h1>{{item.title}}<b>{{item.isPassed}}</b></h1>
           <h3>{{item.level}}</h3>
           <p>{{item.description}}</p>
-
         </div>
-        <a href="javascript:void(0)" (click)="openDialog(item.id)">Start Now</a>
+        <div *ngIf="item.isEnabled">
+          <a href="javascript:void(0)" (click)="startQuiz(item.id)">Start Now</a>
+        </div>
+
         <div class="ico-card">
           <i class="fa fa-rebel"></i>
         </div>
@@ -31,14 +36,16 @@
 
       <div class="card gr-3" *ngIf="item.level == 'ADVANCED'">
         <div class="txt">
-          <h1>{{item.title}}</h1>
+          <h1>{{item.title}}{{item.isPassed}}</h1>
           <h3>{{item.level}}</h3>
           <p>{{item.description}}</p>
         </div>
-        <a href="javascript:void(0)" (click)="openDialog(item.id)">Start Now</a>
-        <a routerLink="pass">pass</a>
+        <div *ngIf="item.isEnabled">
+          <a href="javascript:void(0)" (click)="startQuiz(item.id)">Start Now</a>
+        </div>
         <div class="ico-card">
           <i class="fa fa-empire"></i>
+
         </div>
       </div>
     </div>

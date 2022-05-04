@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../../services/user.service";
+import {UserService} from "../../shared/services/user.service";
 import {Router} from "@angular/router";
-import {User} from "../../interfaces/user";
-import {ActivatedRoute} from "@angular/router";
 
 class CandidateLoginObject {
   id:number;
@@ -29,11 +27,13 @@ export class AssessmentTakerLoginComponent implements OnInit {
   }
   candidateLogin(){
     this.userService.candidateLoginService(this.candidateLoginObject).subscribe(
-      data => {console.log("response recieved");
+      () => {console.log("response recieved");
         console.log(this.candidateLoginObject);
-        this.route.navigate(['/assessment'] ,{state: {data: this.candidateLoginObject.assessmentCode}});
+
+        this.route.navigate(['/assessment',this.candidateLoginObject.assessmentCode] ,{state: {assessmentCode: this.candidateLoginObject.assessmentCode,
+          userEmail:this.candidateLoginObject.email}});
       },
-      error => {console.log("Exception occured");
+      () => {console.log("Exception occured");
         this.msg = 'Bad Credentials , please enter valid email and password'
       })
   }

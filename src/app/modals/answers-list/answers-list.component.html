@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>Answers List</h2>
+<button class="btn btn-primary" (click)="addAnswer()">Add Answer</button>
+<mat-dialog-content class="mat-typography">
+      <mat-table [dataSource]="dataSource"  matSort>
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <mat-header-cell *matHeaderCellDef >Answer</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.description}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="espace">
+          <mat-header-cell *matHeaderCellDef ></mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.espace}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="isCorrect">
+          <mat-header-cell *matHeaderCellDef >Is Correct</mat-header-cell>
+          <mat-cell *matCellDef="let element">{{element.isCorrect}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions" stickyEnd>
+          <mat-header-cell *matHeaderCellDef></mat-header-cell>
+          <mat-cell *matCellDef="let element">
+
+            <button mat-icon-button (click)="editAnswer(element)" color="primary">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="onRemoveAnswer(element.id)" ><mat-icon>delete_outline</mat-icon></button>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="loading">
+          <mat-footer-cell *matFooterCellDef colspan="6">
+            Loading data...
+          </mat-footer-cell>
+        </ng-container>
+        <ng-container matColumnDef="noData">
+          <mat-footer-cell *matFooterCellDef colspan="6">
+            No data.
+          </mat-footer-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':dataSource!=null}"></mat-footer-row>
+        <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(dataSource!=null && dataSource.data.length==0)}"></mat-footer-row>
+      </mat-table>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-dialog-content>
+<mat-dialog-actions >
+  <button type="button" class="btn btn-outline-danger" mat-dialog-close>Close</button>
+</mat-dialog-actions>
+
+

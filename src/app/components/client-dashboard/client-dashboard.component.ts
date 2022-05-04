@@ -1,7 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {AddQuizDialogComponent} from "../../modals/add-quiz-dialog/add-quiz-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-client-dashboard',
@@ -10,18 +7,13 @@ import {MatDialog} from "@angular/material/dialog";
 })
 export class ClientDashboardComponent implements OnInit {
 
-  constructor(private dialog:MatDialog) {
+  constructor() {
 
   }
 
   ngOnInit(): void {
 
   }
-  openDialog() {
-    this.dialog.open(AddQuizDialogComponent, {
-  width:'30%'
 
-    });
-  }
 
 }

@@ -1,11 +1,9 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {QuizService} from "../../services/quiz.service";
+import {QuizService} from "../../shared/services/quiz.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {QuestionService} from "../../services/question.service";
-import {elementAt, map} from "rxjs";
-import {Quiz} from "../../interfaces/quiz";
-import {Question} from "../../interfaces/question";
+import {QuestionService} from "../../shared/services/question.service";
+
 
 @Component({
   selector: 'app-add-question-dialog',
@@ -46,7 +44,7 @@ export class AddQuestionDialogComponent implements OnInit {
     if (!this.editData) {
       if (this.questionForm.valid) {
         this.questionService.addQuestionService(this.questionForm.value).subscribe({
-          next: (res) => {
+          next: () => {
             console.log(this.questionForm.value)
             alert("question added successfully");
             console.log(this.questionForm.value)
@@ -69,7 +67,7 @@ export class AddQuestionDialogComponent implements OnInit {
   {
 
     this.questionService.updateQuestionService(this.editData.id, this.questionForm.value ).subscribe({
-      next: (res) => {
+      next: () => {
         alert("question Updated Successfully");
         this.questionForm.reset();
         this.dialogRef.close("Update");

@@ -31,11 +31,9 @@
     <!-- Previous and Next button -->
     <mat-card-actions>
       <div class="btnGroup">
-        <button mat-raised-button color="primary" (click)="clickPrevBtn()" [disabled]="!checkPrev">Prev</button>
         <button mat-raised-button color="primary"
                 (click)="clickNextBtn()"
-                [disabled]="!checkNext">Next</button>
-        <button class="btn badge-danger" (click)="submitAnswers()">Submit</button>
+                [disabled]="!checkNext">{{actionBtn}}</button>
       </div>
     </mat-card-actions>
   </mat-card>

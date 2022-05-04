@@ -1,8 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {QuizService} from "../../services/quiz.service";
+import {QuizService} from "../../shared/services/quiz.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {AssessmentService} from "../../services/assessment.service";
+import {AssessmentService} from "../../shared/services/assessment.service";
 
 @Component({
   selector: 'app-add-quiz-dialog',
@@ -46,7 +46,7 @@ export class AddQuizDialogComponent implements OnInit {
     if (!this.editData) {
       if (this.quizForm.valid) {
         this.quizService.addQuizService(this.quizForm.value).subscribe({
-          next: (res) => {
+          next: () => {
             alert("quiz added successfully");
             this.quizForm.reset();
             this.dialogRef.close("Save");
@@ -67,7 +67,7 @@ export class AddQuizDialogComponent implements OnInit {
   {
 
     this.quizService.updateQuizService(this.editData.id, this.quizForm.value ).subscribe({
-      next: (res) => {
+      next: () => {
         alert("quiz Updated Successfully");
         this.quizForm.reset();
         this.dialogRef.close("Update");

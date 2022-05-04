@@ -2,14 +2,14 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
-import {QuizService} from "../../../services/quiz.service";
+import {QuizService} from "../../../shared/services/quiz.service";
 import {Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {ConfirmDeleteComponent} from "../../../modals/confirm-delete/confirm-delete.component";
 import {AddQuizDialogComponent} from "../../../modals/add-quiz-dialog/add-quiz-dialog.component";
-import {AssessmentService} from "../../../services/assessment.service";
+import {AssessmentService} from "../../../shared/services/assessment.service";
 import {AddAssessmentDialogComponent} from "../../../modals/add-assessment-dialog/add-assessment-dialog.component";
 
 @Component({

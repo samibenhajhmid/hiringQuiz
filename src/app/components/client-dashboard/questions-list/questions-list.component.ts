@@ -2,19 +2,16 @@ import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
-import {QuizService} from "../../../services/quiz.service";
 import {Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
-import {Quiz} from "../../../interfaces/quiz";
-import {QuestionService} from "../../../services/question.service";
-import {Question} from "../../../interfaces/question";
+import {QuestionService} from "../../../shared/services/question.service";
+import {Question} from "../../../shared/models/question";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {ConfirmDeleteComponent} from "../../../modals/confirm-delete/confirm-delete.component";
-import {AddQuizDialogComponent} from "../../../modals/add-quiz-dialog/add-quiz-dialog.component";
 import {AddQuestionDialogComponent} from "../../../modals/add-question-dialog/add-question-dialog.component";
-import {listenToTriggers} from "@ng-bootstrap/ng-bootstrap/util/triggers";
 import {AddAnswerDialogComponent} from "../../../modals/add-answer-dialog/add-answer-dialog.component";
+import {AnswersListComponent} from "../../../modals/answers-list/answers-list.component";
 
 @Component({
   selector: 'app-questions-list',
@@ -48,25 +45,7 @@ export class QuestionsListComponent implements OnInit, OnDestroy {
     this.getAllQuestions();
   }
 
-  /*getQuestionsByQuizId(id: any) {
-    this.questionService.getQuestionsByQuizIdService(history.state.data).subscribe(
-      response => {
-        console.log(response);
-        this.questions = response;
-        this.dataSource = new MatTableDataSource(response);
-        console.log(this.dataSource)
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator
-      }
-    );
-    this.dataSource.filterPredicate = (data, filter) => {
-      return this.displayedColumns.some(ele => {
-        return ele != 'actions' && data[ele].toLowerCase().indexOf(filter) != -1;
-      });
-    };
-  }
 
-*/
   onRemoveQuestion(id: any): void {
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       hasBackdrop: true,
@@ -109,7 +88,7 @@ export class QuestionsListComponent implements OnInit, OnDestroy {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
-      error:(err)=>{
+      error:()=>{
         alert("Error while fetching the Records!");
       }
     })
@@ -129,7 +108,7 @@ export class QuestionsListComponent implements OnInit, OnDestroy {
 
 
   OpenAnswerDialog(element: any) {
-    const dialogRef = this.dialog.open(AddAnswerDialogComponent, {
+    const dialogRef = this.dialog.open(AnswersListComponent, {
       hasBackdrop: true,
       disableClose: false,
       data:element

@@ -1,7 +1,6 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {QuizService} from "../../services/quiz.service";
-import {AssessmentService} from "../../services/assessment.service";
+import {AssessmentService} from "../../shared/services/assessment.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
@@ -38,7 +37,7 @@ export class AddAssessmentDialogComponent implements OnInit {
     if (!this.editData) {
       if (this.assessmentForm.valid) {
         this.assessmentService.addAssessmentService(this.assessmentForm.value).subscribe({
-          next: (res) => {
+          next: () => {
             alert("Assessment added successfully");
             this.assessmentForm.reset();
             this.dialogRef.close("Save");
@@ -59,7 +58,7 @@ export class AddAssessmentDialogComponent implements OnInit {
   {
 
     this.assessmentService.updateAssessmentService(this.editData.id, this.assessmentForm.value ).subscribe({
-      next: (res) => {
+      next: () => {
         alert("Assessment Updated Successfully");
         this.assessmentForm.reset();
         this.dialogRef.close("Update");
