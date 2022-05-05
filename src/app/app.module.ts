@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { TopNavbarComponent } from './components/top-navbar/top-navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AboutComponent } from './components/about/about.component';
-import { ClientLoginComponent } from './components/client-login/client-login.component';
+import { ClientLoginComponent } from './components/client/client-login/client-login.component';
 import {HttpClientModule} from "@angular/common/http";
 import { AssessmentTakerLoginComponent } from './components/assessment-taker-login/assessment-taker-login.component';
 
@@ -15,7 +15,7 @@ import { BlogComponent } from './components/blog/blog.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import { ClientDashboardComponent } from './components/client-dashboard/client-dashboard.component';
+import { ClientDashboardComponent } from './components/client/client-dashboard/client-dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {MatCardModule} from "@angular/material/card";
@@ -40,20 +40,22 @@ import {ConfirmDeleteComponent} from "./modals/confirm-delete/confirm-delete.com
 import { MatDialogModule} from '@angular/material/dialog';
 import { AddQuizDialogComponent } from './modals/add-quiz-dialog/add-quiz-dialog.component';
 import {MatNativeDateModule} from "@angular/material/core";
-import { QuestionsListComponent } from './components/client-dashboard/questions-list/questions-list.component';
+import { QuestionsListComponent } from './components/client/client-dashboard/questions-list/questions-list.component';
 import { AddQuestionDialogComponent } from './modals/add-question-dialog/add-question-dialog.component';
 import { AddCandidateDialogComponent } from './modals/add-candidate-dialog/add-candidate-dialog.component';
 import { AddAnswerDialogComponent } from './modals/add-answer-dialog/add-answer-dialog.component';
 import { AssessmentComponent } from './components/assessment/assessment.component';
 import { AddAssessmentDialogComponent } from './modals/add-assessment-dialog/add-assessment-dialog.component'
-import {AssessmentsListComponent} from "./components/client-dashboard/assessments-list/assessments-list.component";
+import {AssessmentsListComponent} from "./components/client/client-dashboard/assessments-list/assessments-list.component";
 import {MatDividerModule} from "@angular/material/divider";
 import { StartQuizComponent } from './components/assessment/start-quiz/start-quiz.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import { SessionsListComponent } from './components/client-dashboard/sessions-list/sessions-list.component';
-import { CandidatesListComponent } from './components/client-dashboard/candidates-list/candidates-list.component';
-import { QuizzesListComponent } from './components/client-dashboard/quizzes-list/quizzes-list.component';
+import { SessionsListComponent } from './components/client/client-dashboard/sessions-list/sessions-list.component';
+import { CandidatesListComponent } from './components/client/client-dashboard/candidates-list/candidates-list.component';
+import { QuizzesListComponent } from './components/client/client-dashboard/quizzes-list/quizzes-list.component';
 import { AnswersListComponent } from './modals/answers-list/answers-list.component';
+import { ClientSignUpComponent } from './components/client/client-sign-up/client-sign-up.component';
+import { ResetPasswordComponent } from './components/client/reset-password/reset-password.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,6 +82,8 @@ import { AnswersListComponent } from './modals/answers-list/answers-list.compone
     CandidatesListComponent,
     QuizzesListComponent,
     AnswersListComponent,
+    ClientSignUpComponent,
+    ResetPasswordComponent,
 
 
   ],

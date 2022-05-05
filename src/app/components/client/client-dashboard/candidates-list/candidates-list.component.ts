@@ -1,30 +1,31 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Subject, takeUntil} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
-import {QuizService} from "../../../shared/services/quiz.service";
-import {Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
-import {ConfirmDeleteComponent} from "../../../modals/confirm-delete/confirm-delete.component";
-import {AddQuizDialogComponent} from "../../../modals/add-quiz-dialog/add-quiz-dialog.component";
-import {AssessmentService} from "../../../shared/services/assessment.service";
-import {AddAssessmentDialogComponent} from "../../../modals/add-assessment-dialog/add-assessment-dialog.component";
+import {ConfirmDeleteComponent} from "../../../../modals/confirm-delete/confirm-delete.component";
+
+import {AddCandidateDialogComponent} from "../../../../modals/add-candidate-dialog/add-candidate-dialog.component";
+import {UserService} from "../../../../shared/services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-assessments-list',
-  templateUrl: './assessments-list.component.html',
-  styleUrls: ['./assessments-list.component.css']
+  selector: 'app-candidates-list',
+  templateUrl: './candidates-list.component.html',
+  styleUrls: ['./candidates-list.component.css']
 })
-export class AssessmentsListComponent implements OnInit {
+export class CandidatesListComponent implements OnInit, OnDestroy {
+
   /** Subject that emits when the component has been destroyed. */
   protected _onDestroy = new Subject<void>();
   constructor(private _http: HttpClient, private dialog: MatDialog,
-              private assessmentService: AssessmentService, private _route: Router) {}
+              private userService: UserService, private _route: Router) {}
 
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'title', 'expirationDate', 'assessmentCode', 'actions'];
+  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'password', 'actions'];
+
 
   @ViewChild(MatSort) sort: MatSort ;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -38,11 +39,11 @@ export class AssessmentsListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.getAllAssessments();
+    this.getAllCandidates();
   }
 
 
-  onRemoveAssessment(id: any): void {
+  onRemoveCandidate(id: any): void {
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       hasBackdrop: true,
       disableClose: false,
@@ -52,31 +53,31 @@ export class AssessmentsListComponent implements OnInit {
     dialogRef.afterClosed().pipe(takeUntil(this._onDestroy)).subscribe(isDeleteConfirmed => {
       console.log('removing: ', isDeleteConfirmed);
       if (isDeleteConfirmed) {
-        this.assessmentService.removeAssessmentById(id).then(() => this.getAllAssessments());
+        this.userService.removeUserByIdService(id).then(() => this.getAllCandidates());
       }
     });
   }
 
   openDialog() {
-    this.dialog.open(AddAssessmentDialogComponent, {
+    this.dialog.open(AddCandidateDialogComponent, {
       width: '30%'
     }).afterClosed().subscribe(value => {
       if (value==='Save'){
-        this.getAllAssessments();
+        this.getAllCandidates();
       }
     })
   }
 
 
-  getAllAssessments(){
-    this.assessmentService.getAllAssessmentsService().subscribe({
+  getAllCandidates(){
+    this.userService.getAllCandidatesService().subscribe({
       next:(res)=>{
 
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
-      error:(err)=>{
+      error:()=>{
         alert("Error while fetching the Records!");
       }
     })
@@ -85,13 +86,13 @@ export class AssessmentsListComponent implements OnInit {
     this.searchKey = "";
     this.applyFilter();
   }
-  editAssessment(element:any){
-    this.dialog.open(AddAssessmentDialogComponent,{
+  editCandidate(element:any){
+    this.dialog.open(AddCandidateDialogComponent,{
       width:'30%',
       data:element
     }).afterClosed().subscribe(value => {
       if (value==='Update'){
-        this.getAllAssessments();
+        this.getAllCandidates();
       }
     })
   }
@@ -100,13 +101,5 @@ export class AssessmentsListComponent implements OnInit {
 
   }
 
-  getAssessmentById(id: any) {
-    this.assessmentService.getAssessmentByIdService(id).subscribe(data =>{
-      console.log("assessment By id Received")
-    })
-  }
-
-
 }
-
 

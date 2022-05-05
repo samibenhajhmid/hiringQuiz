@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import { ClientLoginComponent } from "./components/client-login/client-login.component";
+import { ClientLoginComponent } from "./components/client/client-login/client-login.component";
 import {HomeComponent} from "./components/home/home.component";
-import {ClientDashboardComponent} from "./components/client-dashboard/client-dashboard.component";
+import {ClientDashboardComponent} from "./components/client/client-dashboard/client-dashboard.component";
 import {RegistrationComponent} from "./components/registration/registration.component";
-import {QuestionsListComponent} from "./components/client-dashboard/questions-list/questions-list.component";
+import {QuestionsListComponent} from "./components/client/client-dashboard/questions-list/questions-list.component";
 import {AssessmentTakerLoginComponent} from "./components/assessment-taker-login/assessment-taker-login.component";
 import {AssessmentComponent} from "./components/assessment/assessment.component";
 import {StartQuizComponent} from "./components/assessment/start-quiz/start-quiz.component";

@@ -35,6 +35,7 @@
               "src/assets/css/slick.css",
               "src/assets/css/style.css"
 
+
             ],
             "scripts": [
               "src/assets/js/imagesloaded.pkgd.min.js",

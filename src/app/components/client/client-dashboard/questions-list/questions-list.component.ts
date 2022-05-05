@@ -4,14 +4,14 @@ import {HttpClient} from "@angular/common/http";
 import {MatDialog} from "@angular/material/dialog";
 import {Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
-import {QuestionService} from "../../../shared/services/question.service";
-import {Question} from "../../../shared/models/question";
+import {QuestionService} from "../../../../shared/services/question.service";
+import {Question} from "../../../../shared/models/question";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
-import {ConfirmDeleteComponent} from "../../../modals/confirm-delete/confirm-delete.component";
-import {AddQuestionDialogComponent} from "../../../modals/add-question-dialog/add-question-dialog.component";
-import {AddAnswerDialogComponent} from "../../../modals/add-answer-dialog/add-answer-dialog.component";
-import {AnswersListComponent} from "../../../modals/answers-list/answers-list.component";
+import {ConfirmDeleteComponent} from "../../../../modals/confirm-delete/confirm-delete.component";
+import {AddQuestionDialogComponent} from "../../../../modals/add-question-dialog/add-question-dialog.component";
+import {AddAnswerDialogComponent} from "../../../../modals/add-answer-dialog/add-answer-dialog.component";
+import {AnswersListComponent} from "../../../../modals/answers-list/answers-list.component";
 
 @Component({
   selector: 'app-questions-list',
