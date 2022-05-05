@@ -41,4 +41,13 @@ export class UserService {
     return this.http.post("http://localhost:8080/api/assessmentTakerLogin", user)
 
   }
+
+  registerCandidateRemote(user: User) {
+    return this.http.post("http://localhost:8080/api/users/createCandidate", user)
+  }
+
+  registerClientRemote(user: User) {
+    return this.http.post("http://localhost:8080/api/users/create", user)
+
+  }
 }

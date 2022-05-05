@@ -14,10 +14,10 @@
     <div class="row align-items-center">
       <div class="col-lg-6 offset-lg-3 col-md-12 col-12">
         <div class="breadcrumbs-content">
-          <h1 class="page-title">Sign In</h1>
+          <h1 class="page-title">Client Sign In</h1>
           <ul class="breadcrumb-nav">
             <li><a href="">Home</a></li>
-            <li>Sign In</li>
+            <li> Client Sign In</li>
           </ul>
         </div>
       </div>
@@ -28,7 +28,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-12">
-        <form class="card login-form inner-content" method="post">
+        <form (ngSubmit)="userLogin()" class="card login-form inner-content" >
           <div class="card-body">
             <div class="title">
               <h3>Sign In Now</h3>
@@ -37,11 +37,18 @@
             <div class="input-head">
               <div class="form-group input-group">
                 <label><i class="lni lni-envelope"></i></label>
-                <input class="form-control" type="email" id="reg-email" placeholder="Enter your email" required="">
-              </div>
+                <input class="form-control" type="email" name="email" placeholder="Enter your email" [(ngModel)]="user.email" required pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"
+                       #email="ngModel"
+                       [class.is-invalid]="email.invalid && email.touched">
+                <div *ngIf="email.errors && (email.invalid && email.touched)">
+                  <small class="text-danger" *ngIf="email.errors['required']">Adress Email is required field</small>
+                  <small class="text-danger" *ngIf="email.errors['pattern']">Enter the valid value of Adress Email</small>
+                </div>
+                </div>
               <div class="form-group input-group">
                 <label><i class="lni lni-lock"></i></label>
-                <input class="form-control" type="password" id="reg-pass" placeholder="Enter your password" required="">
+                <input class="form-control" type="password" id="reg-pass" placeholder="Password" name="password" [(ngModel)]="user.password" required #password="ngModel"
+                       [class.is-invalid]="password.invalid && password.touched">
               </div>
             </div>
             <div class="d-flex flex-wrap justify-content-between bottom-content">
@@ -59,11 +66,11 @@
             <div class="or"><span>Or</span></div>
             <div class="alt-option">
               <span class="small-title">Sign in with your work email</span>
-              <a href="javascript:void(0)" class="option-button"><img src="../../../../assets/clientSignIn/google.png" alt="#">Sign
+              <a href="javascript:void(0)" class="option-button"><img src="../../../../assets/clientAssets/google.png" alt="#">Sign
                 In With Google
               </a>
             </div>
-            <h4 class="create-account">Don't have an account? <a href="">Sign Up Here</a>
+            <h4 class="create-account">Don't have an account? <a routerLink="/clientRegister">Sign Up Here</a>
             </h4>
           </div>
         </form>
@@ -71,6 +78,6 @@
     </div>
   </div>
 </div>
-<a href="https://preview.uideck.com/items/cryptoland/signin.html#" class="scroll-top">
+<a href="" class="scroll-top">
   <i class="lni lni-chevron-up"></i>
 </a>

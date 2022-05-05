@@ -1,53 +1,50 @@
 <!--====== HEADER ONE PART START ======-->
-<header class="header-area" xmlns="http://www.w3.org/1999/html">
 
-  <div class="navbar-area navbar-one navbar-transparent">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <nav class="navbar navbar-expand-lg">
-            <a class="navbar-brand" href="#">
-              <img src="src/assets/images/smooth-career-logo.png" width=”50px” height="50px"  alt="Logo">
-            </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarOne" aria-controls="navbarOne" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="toggler-icon"></span>
-              <span class="toggler-icon"></span>
-              <span class="toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse sub-menu-bar" id="navbarOne">
-              <ul class="navbar-nav m-auto">
-                <li class="nav-item active">
-                  <a class="page-scroll" href="#home">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="page-scroll" href="#about">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="page-scroll" href="#portfolio">Resources</a>
-                </li>
-                <li class="nav-item">
-                  <a class="page-scroll" href="#pricing">Pricing</a>
-                </li>
-                <li class="nav-item">
-                  <a class="page-scroll" href="#contact">Contact</a>
-                </li>
-              </ul>
-            </div>
-
-            <div class="navbar-btn d-none d-sm-inline-block">
-              <ul>
-                <li><a routerLink="clientLogin" class="light" >Client Login</a></li>
-                <li><a routerLink="assessmentTakerLogin" class="light">Take An Assessment</a></li>
-
-              </ul>
-            </div>
-          </nav> <!-- navbar -->
-        </div>
-      </div> <!-- row -->
-    </div> <!-- container -->
-  </div>
-</header>
 <!--====== HEADER ONE PART ENDS ======-->
+<div class="navbar-area navbar-one navbar-transparent">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <nav class="navbar navbar-expand-lg">
+          <a class="navbar-brand" href="#">
+
+            <svg height="37" viewBox="0 0 150 37" width="150" xmlns="http://www.w3.org/2000/svg"><text fill="#fff" font-family="Poppins" font-size="36" font-weight="600" x="-.464" y="31.228">SCareer</text></svg>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarOne" aria-controls="navbarOne" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="toggler-icon"></span>
+            <span class="toggler-icon"></span>
+            <span class="toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse sub-menu-bar">
+            <ul class="navbar-nav m-auto">
+              <li class="nav-item active">
+                <a class="page-scroll" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="page-scroll" routerLink="/clientLogin">Products</a>
+              </li>
+              <li class="nav-item">
+                <a class="page-scroll" href="#pricing">Pricing</a>
+              </li>
+              <li class="nav-item">
+                <a class="page-scroll" href="#about">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="page-scroll" href="#contact">Contact</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="navbar-btn d-none d-sm-inline-block">
+            <ul>
+              <li><a routerLink="/assessmentTakerLogin" class="light">Take An Assessment</a></li>
+            </ul>
+          </div>
+        </nav> <!-- navbar -->
+      </div>
+    </div> <!-- row -->
+  </div> <!-- container -->
+</div>
 

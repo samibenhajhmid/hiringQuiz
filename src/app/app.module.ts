@@ -3,14 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { TopNavbarComponent } from './components/top-navbar/top-navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AboutComponent } from './components/about/about.component';
 import { ClientLoginComponent } from './components/client/client-login/client-login.component';
 import {HttpClientModule} from "@angular/common/http";
-import { AssessmentTakerLoginComponent } from './components/assessment-taker-login/assessment-taker-login.component';
-
+import { AssessmentTakerLoginComponent } from './components/assessmentTaker/assessment-taker-login/assessment-taker-login.component';
 import { HomeComponent } from './components/home/home.component';
 
-import { BlogComponent } from './components/blog/blog.component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { RegistrationComponent } from './components/registration/registration.component';
@@ -54,18 +51,24 @@ import { SessionsListComponent } from './components/client/client-dashboard/sess
 import { CandidatesListComponent } from './components/client/client-dashboard/candidates-list/candidates-list.component';
 import { QuizzesListComponent } from './components/client/client-dashboard/quizzes-list/quizzes-list.component';
 import { AnswersListComponent } from './modals/answers-list/answers-list.component';
-import { ClientSignUpComponent } from './components/client/client-sign-up/client-sign-up.component';
 import { ResetPasswordComponent } from './components/client/reset-password/reset-password.component';
+import {ProductsComponent} from "./components/home/products/products.component";
+import {OurFeaturesComponent} from "./components/home/our-features/our-features.component";
+import {OurTeamComponent} from "./components/home/our-team/our-team.component";
+import {PricingComponent} from "./components/home/pricing/pricing.component";
+import {ContactComponent} from "./components/home/contact/contact.component";
+import {AboutComponent} from "./components/home/about/about.component";
+import { AssessmentTakerRegisterComponent } from './components/assessmentTaker/assessment-taker-register/assessment-taker-register.component';
+import {ClientRegisterComponent} from "./components/client/client-register/client-register.component";
+import { DashboardComponent } from './components/client/dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
     TopNavbarComponent,
     FooterComponent,
-    AboutComponent,
     ClientLoginComponent,
     AssessmentTakerLoginComponent,
     HomeComponent,
-    BlogComponent,
     RegistrationComponent,
     ClientDashboardComponent,
     ConfirmDeleteComponent,
@@ -82,43 +85,48 @@ import { ResetPasswordComponent } from './components/client/reset-password/reset
     CandidatesListComponent,
     QuizzesListComponent,
     AnswersListComponent,
-    ClientSignUpComponent,
     ResetPasswordComponent,
+    ProductsComponent,
+    OurFeaturesComponent,
+    OurTeamComponent,
+    PricingComponent,
+    ContactComponent,
+    AboutComponent,
+    AssessmentTakerRegisterComponent,
+    ClientRegisterComponent,
+    DashboardComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatInputModule,
+    MatRadioModule,
+    ReactiveFormsModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatCheckboxModule,
+    MatGridListModule,
+    MatDatepickerModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatNativeDateModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
 
 
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        NgbModule,
-        MatCardModule,
-        MatToolbarModule,
-        MatButtonModule,
-        FlexLayoutModule,
-        MatIconModule,
-        MatFormFieldModule,
-        MatSelectModule,
-        MatInputModule,
-        MatRadioModule,
-        ReactiveFormsModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatCheckboxModule,
-        MatGridListModule,
-        MatDatepickerModule,
-        MatSnackBarModule,
-        MatDialogModule,
-        MatNativeDateModule,
-        MatDividerModule,
-        MatProgressSpinnerModule,
-
-
-
-    ],
   providers: [QuizService],
   exports: [],
   bootstrap: [AppComponent],
