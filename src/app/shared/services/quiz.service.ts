@@ -13,6 +13,8 @@ export class QuizService {
   timer;
   qnProgress: number;
   passedList= [];
+  questionTimer: number;
+  questionSeconds=20;
 
   constructor(private http: HttpClient) {
   }
@@ -47,6 +49,12 @@ getQuizzesByAssessmentCode(assessmentCode:string):Observable<any>{
     return `${hours} : ${minutes} : ${seconds}`;
   }
 
+  displayQuestionTimeElapsed() {
+    const hours = Math.floor(this.questionSeconds / 3600) < 10 ? '0' + Math.floor(this.questionSeconds / 3600) : Math.floor(this.questionSeconds / 3600);
+    const minutes = Math.floor((this.questionSeconds / 60) % 60) < 10 ? '0' + Math.floor((this.questionSeconds / 60) % 60) : Math.floor((this.questionSeconds / 60) % 60);
+    const seconds = Math.floor(this.questionSeconds % 60) < 10 ? '0' + Math.floor(this.questionSeconds % 60) : Math.floor(this.questionSeconds % 60);
+    return `${hours} : ${minutes} : ${seconds}`;
+  }
 }
 
 

@@ -77,6 +77,7 @@ export class StartQuizComponent implements OnInit {
   public get checkNext(): Boolean {
     if (this.nbQuestionsInprogress) {
       return true;
+      this.displayQuestionTimer();
     }
     return false;
   }
@@ -101,8 +102,12 @@ export class StartQuizComponent implements OnInit {
     this.questionService.getQuestionsByQuizService(quizId).subscribe(
       res => {
         this.questionData = res
+        console.log('quetions Data');
+
+        console.log(res)
         this.isLoading = false;
         this.startTimer();
+        this.displayQuestionTimer()
         this.getQuestionsAnswerData()
         this.nbQuestions = res.length
         this.nbQuestionsInprogress = this.nbQuestions
@@ -122,7 +127,14 @@ export class StartQuizComponent implements OnInit {
       this.quizService.seconds++;
     }, 1000)
   }
-
+displayQuestionTimer(){
+    this.quizService.questionTimer = setInterval(()=> {
+      this.quizService.questionSeconds--;
+      if(this.quizService.questionSeconds<1){
+        this.clickNextBtn()
+      }
+    },1000)
+}
   // Submit answer or click next
   submitCandidateAnswer() {
     this.currentAnswer.id = this.quizService.qnProgress;
@@ -147,6 +159,8 @@ export class StartQuizComponent implements OnInit {
     if (this.checkNext) {
       this.nbQuestionsInprogress--;
       this.quizService.qnProgress++;
+      this.quizService.questionSeconds =this.questionData[this.quizService.qnProgress].questionTime;
+      this.displayQuestionTimer()
       if (this.nbQuestionsInprogress == 1) {
         this.actionBtn = 'Submit'
       }

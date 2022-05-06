@@ -3,12 +3,18 @@
      fxFlexFill="100%">
   <mat-spinner></mat-spinner>
 </div>
+
 <!-- Quiz container -->
 <div id="quiz-container" *ngIf="questionData && !isLoading" fxLayout="row" fxLayout.xs="column"
      fxLayoutAlign="center center" fxFlexFill="100%">
   <!-- Timer -->
   <div class="display-timer">
     <button mat-flat-button color="primary">
+      {{quizService.displayQuestionTimeElapsed()}}
+    </button>
+  </div>
+  <div class="display-question-timer">
+    <button mat-flat-button class="btn-info">
       {{quizService.displayTimeElapsed()}}
     </button>
   </div>
@@ -27,6 +33,7 @@
           {{answer.description}}
         </mat-radio-button>
       </mat-radio-group>
+
     </mat-card-content>
     <!-- Previous and Next button -->
     <mat-card-actions>
