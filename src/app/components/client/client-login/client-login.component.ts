@@ -22,7 +22,7 @@ export class ClientLoginComponent implements OnInit {
 userLogin(){
     this._service.loginUserRemote(this.user).subscribe(
       data => {console.log("response recieved");
-        this._route.navigate(['/clientDashboard'])
+        this._route.navigate(['/dashboard'])
 
       },
         error => {console.log("Exception occured");

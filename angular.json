@@ -47,12 +47,12 @@
               "src/assets/js/popper.min.js",
               "src/assets/js/scrolling-nav.js",
               "src/assets/js/slick.min.js",
-              "src/assets/js/vendor/modernizr-3.6.0.min.js"
-
-
-
-
-
+              "src/assets/js/vendor/modernizr-3.6.0.min.js",
+              "src/assets/dashboard/js/jquery.app.js",
+              "src/assets/dashboard/js/main.js",
+              "src/assets/dashboard/plugins/morris/morris.min.js",
+              "src/assets/dashboard/plugins/raphael/raphael-min.js",
+              "src/assets/dashboard/js/dashborad1.js"
 
 
 
