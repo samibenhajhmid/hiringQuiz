@@ -9,7 +9,7 @@
      fxLayoutAlign="center center" fxFlexFill="100%">
   <!-- Timer -->
   <div class="display-timer">
-    <button mat-flat-button color="primary">
+    <button mat-flat-button [class] ="buttonClass" >
       {{quizService.displayQuestionTimeElapsed()}}
     </button>
   </div>

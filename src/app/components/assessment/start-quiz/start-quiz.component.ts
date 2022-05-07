@@ -25,7 +25,7 @@ export class StartQuizComponent implements OnInit {
   questionData: Question[];
   answerData: any[] = [];
   private nbQuestions: number;
-  private nbQuestionsInprogress: number;
+  buttonClass= 'btn btn-primary';
   currentAnswer: CandidateAnswer = {
     id: undefined,
     description: undefined,
@@ -40,9 +40,7 @@ export class StartQuizComponent implements OnInit {
     passedTime:undefined,
     relatedAssessment:undefined,
     relatedUser:undefined
-
   };
-
 
   constructor(private candidateAnswerService: CandidateAnswerService, private sessionService: SessionService,
               private questionService: QuestionService, public quizService: QuizService, private answerService: AnswerService,
@@ -53,13 +51,15 @@ export class StartQuizComponent implements OnInit {
     this.quizService.qnProgress = 0;
     this.quizService.seconds = 0;
     this.getQuizQuestionsData(history.state.quizId);
-    console.log('------------->state')
-    console.log(history.state)
+    console.log('history.state',history.state)
 
   }
 
   public get valueAsStyle(): any {
     return this.sanitizer.bypassSecurityTrustStyle(`--progress-bar: ${this.getProgressValue}%`);
+    if(this.quizService.questionSeconds<0){
+      document.getElementById('valueAsStyle').style.color= 'red'
+    }
   }
 
 
@@ -75,11 +75,11 @@ export class StartQuizComponent implements OnInit {
 
   // Check next available
   public get checkNext(): Boolean {
-    if (this.nbQuestionsInprogress) {
+    if (this.quizService.qnProgress < this.nbQuestions+1) {
       return true;
-      this.displayQuestionTimer();
     }
-    return false;
+    else { return false;}
+
   }
 
   // Get Progress Value
@@ -102,15 +102,12 @@ export class StartQuizComponent implements OnInit {
     this.questionService.getQuestionsByQuizService(quizId).subscribe(
       res => {
         this.questionData = res
-        console.log('quetions Data');
-
-        console.log(res)
+        this.quizService.questionSeconds=res[0].questionScore
         this.isLoading = false;
         this.startTimer();
         this.displayQuestionTimer()
         this.getQuestionsAnswerData()
         this.nbQuestions = res.length
-        this.nbQuestionsInprogress = this.nbQuestions
 
       },
       () => {
@@ -130,51 +127,65 @@ export class StartQuizComponent implements OnInit {
 displayQuestionTimer(){
     this.quizService.questionTimer = setInterval(()=> {
       this.quizService.questionSeconds--;
-      if(this.quizService.questionSeconds<1){
+      if(this.quizService.questionSeconds<1 && this.checkNext){
         this.clickNextBtn()
+      }
+
+      if (this.quizService.questionSeconds<20){
+        this.buttonClass = 'btn btn-danger';
       }
     },1000)
 }
   // Submit answer or click next
   submitCandidateAnswer() {
     this.currentAnswer.id = this.quizService.qnProgress;
-    this.currentAnswer.description = this.selectedAnswer;
-    this.currentAnswer.relatedQuestion = (this.questionData)[this.quizService.qnProgress].questionText;
-    this.currentAnswer.relatedQuiz = history.state.relatedQuiz;
-    this.currentAnswer.relatedAssessment = history.state.relatedAssessment;
-    this.currentAnswer.relatedUser = history.state.passedData.userEmail;
-    this.candidateAnswerService.addCandidateAnswers(this.currentAnswer).subscribe({
-      next: res => {
-        console.log(res)
-      },
-      error: () => {
-        console.log("error while adding answer")
-      }
-    })
+    if(this.selectedAnswer){
+      this.currentAnswer.description = this.selectedAnswer;
+    }
+    else{
+      this.currentAnswer.description = "no answer"
+    }
+    if((this.questionData)[this.quizService.qnProgress])
+    {
+      this.currentAnswer.relatedQuestion = (this.questionData)[this.quizService.qnProgress].questionText;
+      this.currentAnswer.relatedQuiz = history.state.relatedQuiz;
+      this.currentAnswer.relatedAssessment = history.state.relatedAssessment;
+      this.currentAnswer.relatedUser = history.state.passedData.userEmail;
+      this.candidateAnswerService.addCandidateAnswers(this.currentAnswer).subscribe({
+        next: res => {
+          console.log(res)
+        },
+        error: () => {
+          console.log("error while adding answer")
+        }
+      })
+
+    }
+
   }
 
 
 
   clickNextBtn() {
-    if (this.checkNext) {
-      this.nbQuestionsInprogress--;
+    this.buttonClass = 'btn btn-primary';
+  if (this.checkNext) {
+     this.submitCandidateAnswer()
+     // this.displayQuestionTimer()
       this.quizService.qnProgress++;
-      this.quizService.questionSeconds =this.questionData[this.quizService.qnProgress].questionTime;
-      this.displayQuestionTimer()
-      if (this.nbQuestionsInprogress == 1) {
+     if(this.quizService.qnProgress<this.nbQuestions){
+       this.quizService.questionSeconds =this.questionData[this.quizService.qnProgress].questionTime;
+     }
+      if (this.quizService.qnProgress == (this.nbQuestions-1)) {
         this.actionBtn = 'Submit'
       }
-      if (this.questionData.length == this.quizService.qnProgress) {
+      if (this.quizService.qnProgress == this.nbQuestions ) {
         console.log(this.quizService.timer)
         clearInterval(this.quizService.timer);
         this.goToHomePage();
       }
-      this.submitCandidateAnswer()
-    }
-
+   }
 
   }
-
   goToHomePage() {
     Swal.fire('Submited!', '<h2 class="text-success">Thank you for participing</h2>', 'success').then(() => {
 

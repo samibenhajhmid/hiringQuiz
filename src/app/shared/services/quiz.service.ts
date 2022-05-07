@@ -14,7 +14,7 @@ export class QuizService {
   qnProgress: number;
   passedList= [];
   questionTimer: number;
-  questionSeconds=20;
+  questionSeconds=15;
 
   constructor(private http: HttpClient) {
   }
