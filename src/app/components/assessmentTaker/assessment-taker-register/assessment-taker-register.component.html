@@ -43,22 +43,13 @@
             <div class="or"><span>Or</span></div>
             <div class="input-head">
               <div class="row">
-                <div class="col-lg-6 col-12">
-                  <div class="form-group input-group">
-                    <label><i class="lni lni-user"></i></label>
-                    <input class="form-control" type="text" name="firstName" placeholder="Your first name" [(ngModel)]="user.firstName" required
-                           #firstName="ngModel"
-                           [class.is-invalid]="firstName.invalid && firstName.touched">
-                  </div>
-                </div>
-                <div class="col-lg-6 col-12">
-                  <div class="form-group input-group">
-                    <label><i class="lni lni-users"></i></label>
-                    <input class="form-control" type="text" name="lastName" placeholder="Your last name" [(ngModel)]="user.lastName" required
-                           #lastName="ngModel"
-                           [class.is-invalid]="lastName.invalid && lastName.touched">
-                  </div>
-                </div>
+
+              </div>
+              <div class="form-group input-group">
+                <label><i class="lni lni-user"></i></label>
+                <input class="form-control" type="text" name="username" placeholder="Enter a username" [(ngModel)]="user.username" required
+                       #username="ngModel"
+                       [class.is-invalid]="username.invalid && username.touched">
               </div>
                 <div class="form-group input-group">
                   <label><i class="lni lni-envelope"></i></label>

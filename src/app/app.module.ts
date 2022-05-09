@@ -10,7 +10,6 @@ import { HomeComponent } from './components/home/home.component';
 
 
 import { AppRoutingModule } from './app-routing.module';
-import { RegistrationComponent } from './components/registration/registration.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
@@ -68,7 +67,6 @@ import { DashboardComponent } from './components/client/dashboard/dashboard.comp
     ClientLoginComponent,
     AssessmentTakerLoginComponent,
     HomeComponent,
-    RegistrationComponent,
     ConfirmDeleteComponent,
     AddQuizDialogComponent,
     QuestionsListComponent,

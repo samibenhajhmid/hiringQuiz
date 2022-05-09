@@ -24,7 +24,7 @@ export class CandidatesListComponent implements OnInit, OnDestroy {
               private userService: UserService, private _route: Router) {}
 
   dataSource!: MatTableDataSource<any>;
-  displayedColumns: string[] = ['id', 'firstName', 'lastName', 'email', 'password', 'actions'];
+  displayedColumns: string[] = ['id', 'username', 'email', 'password', 'actions'];
 
 
   @ViewChild(MatSort) sort: MatSort ;
