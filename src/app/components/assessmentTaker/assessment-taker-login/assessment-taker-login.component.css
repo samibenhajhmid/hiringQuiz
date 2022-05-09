@@ -1,4 +1,8 @@
-
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  .container {
+    width: 450px;
+  }
+}
 .preloader {
   position: fixed;
   top: 0;

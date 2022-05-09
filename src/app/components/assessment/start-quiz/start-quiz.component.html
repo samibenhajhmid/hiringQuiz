@@ -8,11 +8,7 @@
 <div id="quiz-container" *ngIf="questionData && !isLoading" fxLayout="row" fxLayout.xs="column"
      fxLayoutAlign="center center" fxFlexFill="100%">
   <!-- Timer -->
-  <div class="display-timer">
-    <button mat-flat-button [class] ="buttonClass" >
-      {{quizService.displayQuestionTimeElapsed()}}
-    </button>
-  </div>
+
   <div class="display-question-timer">
     <button mat-flat-button class="btn-info">
       {{quizService.displayTimeElapsed()}}

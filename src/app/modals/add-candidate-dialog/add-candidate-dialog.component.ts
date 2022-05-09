@@ -21,18 +21,16 @@ export class AddCandidateDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.candidateForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      username: ['', Validators.required],
       email: ['', Validators.required],
-      password: new FormControl('', [Validators.required, Validators.min(3) ]),
+      password: new FormControl('', [Validators.required, Validators.min(8) ]),
       role: ['CANDIDATE'],
     });
 
 
     if (this.editData) {
       this.actionBtn = 'Update'
-      this.candidateForm.controls['firstName'].setValue(this.editData.firstName)
-      this.candidateForm.controls['lastName'].setValue(this.editData.lastName)
+      this.candidateForm.controls['username'].setValue(this.editData.firstName)
       this.candidateForm.controls['email'].setValue(this.editData.email)
       this.candidateForm.controls['password'].setValue(this.editData.password)
       this.candidateForm.controls['role'].setValue(this.editData.role)
