@@ -11,6 +11,9 @@ import {Router} from "@angular/router";
 export class AssessmentTakerRegisterComponent implements OnInit {
   msg= '';
   user = new User();
+  isSuccessful: any;
+  isUsing2FA: any;
+  qrCodeImage: any;
 
   constructor(private _service: UserService, private _router : Router) { }
 

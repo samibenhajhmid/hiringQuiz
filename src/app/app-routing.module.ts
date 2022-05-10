@@ -18,6 +18,8 @@ import {
 import {CandidatesListComponent} from "./components/client/dashboard/candidates-list/candidates-list.component";
 import {QuizzesListComponent} from "./components/client/dashboard/quizzes-list/quizzes-list.component";
 import {SessionsListComponent} from "./components/client/dashboard/sessions-list/sessions-list.component";
+import {MailSuccessComponent} from "./components/mail-success/mail-success.component";
+import {TokenComponent} from "./components/token/token.component";
 
 const routes: Routes = [
 
@@ -29,6 +31,11 @@ const routes: Routes = [
   {path: 'start-quiz/:qid',component:StartQuizComponent,pathMatch:'full'},
   {path: 'assessmentTakerRegister',component:AssessmentTakerRegisterComponent},
   {path: 'assessmentTakerLogin',component:AssessmentTakerLoginComponent},
+  {path: 'mail-success',component:MailSuccessComponent},
+  { path: 'verify', component: TokenComponent },
+
+
+
   {path: 'dashboard', component:DashboardComponent,
     children:[
       {path:'',component:AssessmentsListComponent},

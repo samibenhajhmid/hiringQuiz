@@ -59,6 +59,8 @@ import {AboutComponent} from "./components/home/about/about.component";
 import { AssessmentTakerRegisterComponent } from './components/assessmentTaker/assessment-taker-register/assessment-taker-register.component';
 import {ClientRegisterComponent} from "./components/client/client-register/client-register.component";
 import { DashboardComponent } from './components/client/dashboard/dashboard.component';
+import { MailSuccessComponent } from './components/mail-success/mail-success.component';
+import { TokenComponent } from './components/token/token.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +92,9 @@ import { DashboardComponent } from './components/client/dashboard/dashboard.comp
     AboutComponent,
     AssessmentTakerRegisterComponent,
     ClientRegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    MailSuccessComponent,
+    TokenComponent
   ],
   imports: [
     BrowserModule,
